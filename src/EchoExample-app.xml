@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/2.0beta">
+
+	<id>EchoExample</id>
+	<filename>EchoExample</filename>
+	<name>EchoExample</name>
+	<version>v1</version>
+	<description>Example of how to use the new microphone local access APIs. Created by Christian Cantrell.</description>
+	<copyright>Copyright © 2009 Adobe Systems Incorporated. All rights reserved.</copyright>
+	<initialWindow>
+		<content>[This value will be overwritten by Flex Builder in the output app.xml]</content>
+		<!--<title></title>-->
+		<!-- <systemChrome></systemChrome> -->
+		<!-- <transparent></transparent> -->
+		<visible>true</visible>
+		<!-- <minimizable></minimizable> -->
+		<!-- <maximizable></maximizable> -->
+		<!-- <resizable></resizable> -->
+		<width>300</width>
+		<height>200</height>
+		<!-- <x></x> -->
+		<!-- <y></y> -->
+		<!-- <minSize></minSize> -->
+		<!-- <maxSize></maxSize> -->
+	</initialWindow>
+
+	<!-- <installFolder></installFolder> -->
+	<!-- <programMenuFolder></programMenuFolder> -->
+
+	<!-- <icon>
+		<image16x16></image16x16>
+		<image32x32></image32x32>
+		<image48x48></image48x48>
+		<image128x128></image128x128>
+	</icon> -->
+</application>

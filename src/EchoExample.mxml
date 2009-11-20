@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+	<mx:Script>
+		<![CDATA[
+
+			private var mic:Microphone;
+			private var soundBytes:ByteArray;
+			private var rec:Boolean = false;
+			private var timer:Timer;
+			private var volume:Number;
+			private var pan:Number;
+			private var soundMap:Object;
+
+			private function onToggleRecording():void
+			{
+				this.rec = !rec;
+				if (rec)
+				{
+					this.recordButton.label = "Stop Recording";
+					this.soundBytes = new ByteArray();
+					this.mic = Microphone.getMicrophone();
+					this.mic.setSilenceLevel(40);
+					this.mic.gain = 100;
+					this.mic.rate = 44;
+					this.mic.addEventListener(SampleDataEvent.SAMPLE_DATA, onMicSampleData);
+				}
+				else
+				{
+					this.recordButton.label = "Start Recording";
+					this.mic.removeEventListener(SampleDataEvent.SAMPLE_DATA, onMicSampleData);
+					this.mic = null;
+					this.playEcho();
+				}
+			}
+			
+			private function onMicSampleData(event:SampleDataEvent):void
+			{
+			    while(event.data.bytesAvailable)
+			    {
+			        var sample:Number = event.data.readFloat();
+			        this.soundBytes.writeFloat(sample);
+			    }
+			}
+			
+			private function playEcho():void
+			{
+				this.volume = 1;
+				this.pan = 1;
+				this.soundMap = new Object();
+				this.timer = new Timer(750, 4);
+				this.timer.addEventListener(TimerEvent.TIMER, startPlayback);
+				this.timer.start();
+			}
+
+			private function startPlayback(e:TimerEvent):void
+			{
+				var soundCopy:ByteArray = new ByteArray();
+				soundCopy.writeBytes(this.soundBytes);
+				soundCopy.position = 0;
+			    var sound:Sound = new Sound();
+			    this.soundMap[sound] = soundCopy;
+			    sound.addEventListener(SampleDataEvent.SAMPLE_DATA, onSamplePlayback);
+			    var soundChannel:SoundChannel = sound.play();
+			    var soundTransform:SoundTransform = new SoundTransform(this.volume, this.pan);
+			    soundChannel.soundTransform = soundTransform;
+			    this.volume -= .31;
+			    this.pan -= .33;
+			}
+			
+			private function onSamplePlayback(event:SampleDataEvent):void
+			{
+				var sound:Sound = event.target as Sound;
+				var soundCopy:ByteArray = ByteArray(this.soundMap[sound]);
+			    for (var i:int = 0; i < 8192 && soundCopy.bytesAvailable > 0; i++)
+			    {
+			        var sample:Number = soundCopy.readFloat();
+			        event.data.writeFloat(sample);
+			        event.data.writeFloat(sample);
+			    }
+			}
+
+		]]>
+	</mx:Script>
+	<mx:Box width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+		<mx:Button id="recordButton" label="Start Recording" click="onToggleRecording();"/>
+	</mx:Box>
+</mx:Application>
