@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/2.0beta2">
+<application xmlns="http://ns.adobe.com/air/application/2.0">
 
 	<id>EchoExample</id>
 	<filename>EchoExample</filename>
 	<name>EchoExample</name>
-	<version>v1</version>
+	<version>1</version>
 	<description>Example of how to use the new microphone local access APIs. Created by Christian Cantrell.</description>
-	<copyright>Copyright © 2009 Adobe Systems Incorporated. All rights reserved.</copyright>
+	<copyright>Copyright © 2010 Adobe Systems Incorporated. All rights reserved.</copyright>
 	<initialWindow>
 		<content>[This value will be overwritten by Flex Builder in the output app.xml]</content>
 		<!--<title></title>-->
@@ -23,9 +23,6 @@
 		<!-- <minSize></minSize> -->
 		<!-- <maxSize></maxSize> -->
 	</initialWindow>
-
-	<!-- <installFolder></installFolder> -->
-	<!-- <programMenuFolder></programMenuFolder> -->
 
 	<!-- <icon>
 		<image16x16></image16x16>
